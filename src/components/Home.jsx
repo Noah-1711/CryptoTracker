@@ -20,8 +20,8 @@ export const Home = () => {
         coinsdata()
     }, []);
   
-    const filteredCoins = coins.filter((coin) =>
-      coin.name.toLowerCase().includes(search.toLowerCase())
+    const filteredCoins = coins.filter((ele) =>
+      ele.name.toLowerCase().includes(search.toLowerCase())
     );
   
 
@@ -29,10 +29,10 @@ export const Home = () => {
     <>
       <h1 className="heading"> CryptoChecker</h1>
       <div className="coin-search">
-        <p className="coin-Text">Search a coin :-</p>
+        {/* <p className="coin-Text">Search a coin :-</p> */}
           <input
             type="text"
-            placeholder="Search"
+            placeholder="Search a coin"
             className="coin-input"
             onChange={(e)=>{
               setSearch(e.target.value);
