@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import Coin from './Coin';
+import { Pagination } from './Pagination';
 
 
 export const Home = () => {
 
     const [coins, setCoins] = useState([]);
     const [search, setSearch] = useState("");
+    const[currentpage,setCurrentpage]=useState(1);
+    const[postperpage]=useState(10);
+
+
   
     useEffect(() => {
         const coinsdata= async()=>{
@@ -23,6 +28,13 @@ export const Home = () => {
     const filteredCoins = coins.filter((ele) =>
       ele.name.toLowerCase().includes(search.toLowerCase())
     );
+
+
+    const indexoflastcoins =currentpage * postperpage
+    const indexoffirstcoins =indexoflastcoins -postperpage
+    const currentfiltercoins = filteredCoins.slice(indexoffirstcoins,indexoflastcoins)
+
+
   
 
   return (
@@ -40,7 +52,7 @@ export const Home = () => {
             }}
           />
       </div>
-      {filteredCoins.map((coin) => {
+      {currentfiltercoins.map((coin) => {
         return (
           <Coin
             id={coin.id}
@@ -52,8 +64,10 @@ export const Home = () => {
             price={coin.current_price}
             priceChange={coin.price_change_percentage_24h}
           />
+        
         );
       })}
+      <Pagination postperpage={postperpage} totalpage={coins.length } setCurrentpage={setCurrentpage} currentpage={currentpage}/>
 </> 
  )
 }
